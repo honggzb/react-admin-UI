@@ -1,5 +1,5 @@
 import { Box, Button, TextField } from "@mui/material";
-import { Formik } from "formik";
+import { Formik, Form, FormikHelpers } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import MainHeader from "../components/MainHeader"
@@ -12,6 +12,16 @@ const initialValues = {
   address1: "",
   address2: "",
 };
+
+interface Values {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
+  address1: string;
+  address2: string;
+}
+
 
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
@@ -27,12 +37,15 @@ const checkoutSchema = yup.object().shape({
   address2: yup.string().required("required"),
 });
 
-const Form = () => {
+const Myform = () => {
 
   const isNonMobile = useMediaQuery("(min-width: 600px");
 
-  const handleFormSubmit = (values) => {
-    console.log(values)
+  const handleFormSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 500);
   }
 
     return (
@@ -44,7 +57,7 @@ const Form = () => {
           validationSchema={checkoutSchema}
         >
            { ({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => 
-                  ( <form onSubmit={handleSubmit}>
+                  ( <Form onSubmit={handleSubmit}>
                       <Box display="grid" gap="30px" 
                           gridTemplateColumns="repeat(4, minmax(0, 1fr))"
                           sx={{ "& > div": { gridColumn: isNonMobile ? undefined : "span 4"} }}>
@@ -79,7 +92,7 @@ const Form = () => {
                                        onBlur={handleBlur}
                                        onChange={handleChange}
                                        value={values.contact}
-                                       name="lastName"
+                                       name="contact"
                                        error={!!touched.contact && !!errors.contact}
                                        helperText={touched.contact && errors.contact}
                                        sx={{gridColumn: "span 4"}} 
@@ -108,7 +121,7 @@ const Form = () => {
                                 Create New User
                             </Button>
                           </Box>
-                    </form>
+                    </Form>
                   )
                 }
           </Formik>
@@ -116,5 +129,5 @@ const Form = () => {
     );
   };
   
-  export default Form;
+  export default Myform;
   
