@@ -37,11 +37,11 @@ function Mysidebar() {
   const [selected, setSelected] = useState("Dashboard");
 
   return (
-    <Box sx={{ "& .pro-sidebar-inner": { background: `${colors.primary[400]} !important`, },
-               "& .pro-icon-wrapper": { backgroundColor: "transparent !important", },
-               "& .pro-inner-item": { padding: "5px 35px 5px 20px !important", },
-               "& .pro-inner-item:hover": { color: "#868dfb !important", },
-               "& .pro-menu-item.active": { color: "#6870fa !important", },
+    <Box sx={{ "& .ps-sidebar-container": { background: `${colors.primary[400]} !important`},
+               "& .ps-icon-wrapper": { backgroundColor: "transparent !important"},
+               "& .ps-inner-item": { padding: "5px 35px 5px 20px !important" },
+               "& .ps-inner-item:hover": { color: "#868dfb !important" },
+               "& .ps-menu-item.active": { color: "#6870fa !important" },
                display: "flex" }}>
       <Sidebar collapsed={isCollapsed}>
         <Menu>
